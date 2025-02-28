@@ -1,47 +1,54 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-// import TheWelcome from './components/TheWelcome.vue'
+import Card from './components/Card.vue';
+
+
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <!-- <TheWelcome /> -->
-  </main>
+  <Card class="card">
+    <template #header> <img src="https://images8.alphacoders.com/466/466612.jpg" class="img" alt=""></template>
+    <template #title>
+      <h1 class="title">card</h1>
+    </template>
+    <template #body class="body"> Lorem ipquisquam iste laudantium doloremque exercitationem neque amet doloribus ab
+      officiis, dolores necessitatibus perferendis fugit minima, dolorum culpa enim.</template>
+    <template #footer><button class="btn">Go somewhere</button></template>
+  </Card>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
+<style>
+.card {
+  height: 400px;
+  width: 400px;
+  border: 2px solid rgb(185, 147, 147);
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.img {
+  height: 200px;
+  width: 398px;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+.title {
+  position: absolute;
+  bottom: 75px;
+  font-weight: 700;
+  margin-left: 5px;
+}
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+.body {
+  position: absolute;
+  bottom: 30px;
+  padding: 7px;
+}
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+.btn {
+  position: absolute;
+  bottom: 12px;
+  left: 20px;
+  background-color: blue;
+  color: white;
 }
 </style>
