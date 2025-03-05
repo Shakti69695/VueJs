@@ -21,7 +21,7 @@
             alt=""
           />
         </button>
-        <button class="Dbtn" @click.prevent="deletetask(item)">
+        <button class="Dbtn" @click.prevent="deleteTask(item)">
           <img
             src="https://img.icons8.com/?size=100&id=3062&format=png&color=000000"
             id="Dimg"
@@ -45,8 +45,8 @@ export default {
   },
 
   methods: {
-    deletetask: function(item) {
-      this.$emit('deletetask', item);
+    deleteTask: function(item) {
+      this.$store.dispatch('todos/deleteTask', item);
     },
     editTask: function(item, index) {
       item.isEditing = true;
@@ -60,7 +60,7 @@ export default {
     },
     savetask: function(item) {
       item.isEditing = false;
-      this.$emit('savetask', item);
+      this.$store.dispatch('todos/saveTask', item);
     }
   }
 }

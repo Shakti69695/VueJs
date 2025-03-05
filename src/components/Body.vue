@@ -6,35 +6,29 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 import Header from './Header.vue';
 import Tasks from './Tasks.vue';
 
 
 export default {
   name: "Body",
-  data: function () {
-    return {
-      tasks: []
-    }
-  },methods:{
-    addtask:function(task){      
-      task.id = this.tasks.length+1;
-      this.tasks.push(task)
+  computed: {
+    ...mapGetters('todos', ['tasks'])
+  },
+  methods: {
+    ...mapActions('todos', ['addTask', 'deleteTask', 'saveTask']),
+
+    addtask(task) {
+      this.addTask(task)  // Dispatching the action to add a task
     },
-    deletetask:function(task){
-      let index = this.tasks.findIndex(obj => obj.task === task.task);  
-     if (index !== -1) {
-     this.tasks.splice(index, 1);  
-     } else {
-      console.log("Task not found");
-  }
-},
-  savetask:function(item){
-    let index= this.tasks.findIndex(task=> task.id === item.id)
-    if (index !== -1) {
-        this.tasks[index] = item;
+    deletetask(task) {
+      this.deleteTask(task)  // Dispatching the action to delete a task
+    },
+    savetask(item) {
+      this.saveTask(item)  // Dispatching the action to save a task
     }
-  }
+
   },
   components: {
     Header,

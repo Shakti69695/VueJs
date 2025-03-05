@@ -36,8 +36,9 @@ export default {
       this.isComponentModelActive = false;
 
     },
-    addtask:function(task){
-      this.$emit('addtask',task)
+    addtask(task){
+      this.$store.dispatch('todos/addTask',task)
+      this.close()
     }
   }
 }
