@@ -9,6 +9,8 @@ export const useStore = defineStore('storeId', {
       allProducts: [],
       username: '',
       password: '',
+      query: '',
+      product: {},
     }
   },
   actions: {
@@ -29,16 +31,43 @@ export const useStore = defineStore('storeId', {
       this.user = response.data
     },
     async fetchProducts() {
-      const response = await axios.get('https://dummyjson.com/products?limit=100') 
-      console.log(response.data.products);
-       
+      const response = await axios.get('https://dummyjson.com/products?limit=100')
       this.allProducts = response.data.products
+    },
+
+    async fetchQueryProducts(query) {
+      const response = await axios.get(`https://dummyjson.com/products/search?q=${query}`)
+      this.allProducts = response.data.products
+    },
+    async categoryProducts(category) {
+      const response = await axios.get(`https://dummyjson.com/products/category/${category}`)
+      this.allProducts = response.data.products
+    },
+    async fetchProduct(id) {
+      const response = await axios.get(`https://dummyjson.com/products/${id}`)
+      console.log(response.data)
+
+      this.product = response.data
+    },
+    addToCart(product) {
+      const existingItem = this.bagItems.find(item => item.id === product.id);
+      if (existingItem) {
+        existingItem.quantity++;
+      } else {
+        this.bagItems.push({ ...product, quantity: 1 });
+      }      
+    },
+    removeFromBag(id) {
+      this.bagItems = this.bagItems.filter(item => item.id !== id); // Remove the item by id
     },
     setUsername(username) {
       this.username = username
     },
     setPassword(password) {
       this.password = password
+    },
+    setQuery(query) {
+      this.query = query
     },
   },
   getters: {
@@ -47,5 +76,7 @@ export const useStore = defineStore('storeId', {
     getUsername: (state) => state.username,
     getPassword: (state) => state.password,
     getAllProducts: (state) => state.allProducts,
+    getProduct: (state) => state.product,
   },
+  persist: true,
 })

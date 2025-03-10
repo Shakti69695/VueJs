@@ -9,17 +9,19 @@ import ItemView from './pages/ItemView.vue'
 import Bag from './pages/Bag.vue'
 import Checkout from './pages/Checkout.vue'
 import Login from './pages/Login.vue'
+import Category from './pages/Category.vue'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 const pinia = createPinia()
-// createApp(App).mount('#app')
+pinia.use(piniaPluginPersistedstate)
 
 const routes = [
   { path: '/', component: Dashboard },
   { path: '/login', component: Login },
-  { path: '/item', component: ItemView },
+  { path: '/category', component: Category },
   { path: '/bag', component: Bag },
   { path: '/checkout', component: Checkout },
-  { path: '/itemview', component: ItemView },
+  { path: '/itemview/:id(\\d+)', component: ItemView },
 ]
 const router = createRouter({
   history: createWebHashHistory(),

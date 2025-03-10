@@ -1,22 +1,23 @@
 <template>
   <!-- Dashboard Component -->
-  <div class="flex flex-row justify-between bg-[#EDEDED] relative gap-[10px]">
-    <div class="fixed">
-      <Navbar />
-    </div>
-    <div class="absolute left-82px">
-      <Search />
-      <ContentBox/>
-    </div>
-    <div class="fixed left-[900px]">
-      <Bag />
+  <div>
+    <div class="flex flex-row justify-between bg-[#EDEDED] relative">
+      <!-- Navbar -->
+      <div class="fixed flex justify-end w-[72px] py-4 h-screen bg-[#EDEDED]">
+        <Navbar />
+      </div>
+
+      <!-- ContentBox with adjusted width -->
+      <div class="absolute left-[72px] bg-[#EDEDED]" style="width: calc(100vw - 72px);">
+        <ContentBox />
+      </div>
     </div>
   </div>
 </template>
 
+
 <script>
 import Navbar from '@/components/Navbar.vue';
-import Bag from './Bag.vue';
 import Search from '@/components/Search.vue';
 import ContentBox from '@/components/ContentBox.vue';
 
@@ -24,7 +25,7 @@ export default {
   name: 'Dashboard',
   components: {
     Navbar,
-    Bag, Search,
+     Search,
     ContentBox
   },
   data() {
