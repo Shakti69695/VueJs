@@ -8,7 +8,7 @@
       </div>
 
       <!-- ContentBox with adjusted width -->
-      <div class="absolute left-[72px] bg-[#EDEDED]" style="width: calc(100vw - 72px);">
+      <div class="absolute left-[72px] bg-[#EDEDED]">
         <ContentBox />
       </div>
     </div>

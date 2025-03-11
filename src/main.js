@@ -11,6 +11,7 @@ import Checkout from './pages/Checkout.vue'
 import Login from './pages/Login.vue'
 import Category from './pages/Category.vue'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+import { useStore } from './store/store'
 
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
@@ -27,6 +28,17 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes,
 })
+
+router.beforeEach((to, from, next) => {
+  const store = useStore();
+  
+  // If the route is '/checkout' and the user is not logged in, redirect to login page
+  if (to.path === '/checkout' && !store.isLoggedIn) {
+    next('/login');
+  } else {
+    next();
+  }
+});
 
 
 // router.beforeEach((to, from, next) => {

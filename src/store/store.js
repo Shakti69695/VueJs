@@ -5,6 +5,7 @@ export const useStore = defineStore('storeId', {
   state: () => {
     return {
       user: {},
+      isUserLoggedIn: false,
       bagItems: [],
       allProducts: [],
       username: '',
@@ -50,15 +51,15 @@ export const useStore = defineStore('storeId', {
       this.product = response.data
     },
     addToCart(product) {
-      const existingItem = this.bagItems.find(item => item.id === product.id);
+      const existingItem = this.bagItems.find((item) => item.id === product.id)
       if (existingItem) {
-        existingItem.quantity++;
+        existingItem.quantity++
       } else {
-        this.bagItems.push({ ...product, quantity: 1 });
-      }      
+        this.bagItems.push({ ...product, quantity: 1 })
+      }
     },
     removeFromBag(id) {
-      this.bagItems = this.bagItems.filter(item => item.id !== id); // Remove the item by id
+      this.bagItems = this.bagItems.filter((item) => item.id !== id) // Remove the item by id
     },
     setUsername(username) {
       this.username = username
@@ -68,6 +69,9 @@ export const useStore = defineStore('storeId', {
     },
     setQuery(query) {
       this.query = query
+    },
+    setLoginStatus(status) {
+      this.isUserLoggedIn = status // Update the login status
     },
   },
   getters: {

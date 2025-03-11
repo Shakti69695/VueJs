@@ -15,16 +15,25 @@
       
     </div>
     <div>
-      <router-link to="/bag" class="bg-[#E5252C] hover:bg-gray-200">
-          <img src="../assets/icons/Icon.svg" alt="Bag" class=" bg-[#E5252C] h-[24px] w-[24px] m-[8px]" />
-        </router-link>
+      <button @click="logout" class="bg-[#E5252C]  cursor-pointer  rounded-[10px]">
+          <img src="../assets/icons/Icon.svg" alt="Logout" class=" bg-[#E5252C] h-[24px] w-[24px] m-[8px]" />
+        </button>
     </div>
   </div>
 </template>
 
 <script>
+import { useStore } from '@/store/store';
+
 export default {
-  name: 'Navbar'
+  name: 'Navbar',
+  methods: {
+    logout() {
+      const store = useStore();
+      store.setLoginStatus(false); // Set login status to false to log out the user
+      this.$router.push('/login'); // Redirect to the login page
+    }
+  }
 }
 </script>
 

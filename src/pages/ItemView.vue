@@ -56,7 +56,7 @@
               <div class="flex justify-end p-[8px]">
                 <button @click="addToBag"
                   class="px-6 py-2 cursor-pointer bg-[#1A1F16] text-[#FFFFFF] rounded-[14px] flex items-center space-x-2 font-[cabin]">
-                  <span><img class="bg-[#FFFFFF]" src="../assets/icons/Name=bag-add.svg" alt=""></span>
+                  <span><img class="bg-[#1A1F16]" src="../assets/icons/checkout.svg" alt=""></span>
                   <span>Add to Bag</span>
                 </button>
               </div>

@@ -21,47 +21,28 @@
         </div>
       </div>
       <!-- Hover Modal -->
-      <div v-if="isModalVisible"
-        class="absolute top-[56px] right-3 bg-[#EDEDED] shadow-lg rounded-[13px] p-2 flex flex-wrap gap-2 h-96 overflow-y-auto cursor-pointer hover-modal w-min overflow-x-hidden justify-center px-1.5 py-5 font-[cabin]"
-        @mouseleave="hideModal" @click="navigateToBag">
+      <div v-if="isModalVisible && bagItems.length > 0"
+  class="absolute right-3 bg-[#FFFF] shadow-lg rounded-[13px] p-2 flex flex-wrap gap-2 h-96 overflow-y-auto cursor-pointer hover-modal w-auto sm:w-80 md:w-80 lg:w-80 xl:w-96 overflow-x-hidden justify-center px-1.5 py-5 font-[cabin] z-10"
+  @mouseleave="hideModal" @click="navigateToBag" :style="{ top: 'calc(56px + 48px)' }">
 
-        <span class="text-center w-full">Go to Bag</span>
-        <div class="flex flex-col gap-2 ">
-          <HoverCard v-for="item in bagItems" :key="item.id" :item="item" />
-        </div>
-        <span class="text-center w-full"> Total: ${{ totalPrice }}</span>
-      </div>
+  <span class="text-center w-full">Go to Bag</span>
+  <div class="flex flex-col gap-2">
+    <HoverCard v-for="item in bagItems" :key="item.id" :item="item" />
+  </div>
+  <span class="text-center w-full"> Total: ${{ totalPrice }}</span>
+</div>
+
     </div>
 
+    <!-- Category Section -->
     <div>
-      <div class="flex flex-wrap justify-start m-[10px] relative w-fit">
-        <button @click="categoryProducts('smartphones')"
-          class="cursor-pointer bg-[#ffffffa7] font-[cabin] rounded-full mx-[10px] border border-gray-400 mb-2">
-          Smartphones
-        </button>
-        <button @click="categoryProducts('laptops')"
-          class="cursor-pointer bg-[#ffffffa7]  rounded-full mx-[10px] border border-gray-400 mb-2">
-          Laptops
-        </button>
-        <button @click="categoryProducts('groceries')"
-          class="cursor-pointer bg-[#ffffffa7] font-[cabin]  rounded-full mx-[10px] border border-gray-400 mb-2">
-          Groceries
-        </button>
-        <button @click="categoryProducts('fragrances')"
-          class="cursor-pointer bg-[#ffffffa7] font-[cabin]  rounded-full mx-[10px] border border-gray-400 mb-2">
-          Fragrances
-        </button>
-        <button @click="categoryProducts('furniture')"
-          class="cursor-pointer bg-[#ffffffa7] font-[cabin]  rounded-full mx-[10px] border border-gray-400 mb-2">
-          Furniture
-        </button>
-        <button @click="categoryProducts('motorcycle')"
-          class="cursor-pointer bg-[#ffffffa7] font-[cabin]  rounded-full mx-[10px] border border-gray-400 mb-2">
-          Motorcycle
-        </button>
-      </div>
-
+      <CategoryButtons 
+        :categories="categories" 
+        :selected-category="selectedCategory" 
+        @category-clicked="categoryProduct"
+      />
     </div>
+
     <!-- Products -->
     <div v-if="paginatedProducts.length >= 1"
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mx-auto  gap-8 p-4 bg-[#EDEDED]"
@@ -92,6 +73,7 @@ import { useStore } from '@/store/store';
 import { mapActions, mapState } from 'pinia';
 import Card from './Card.vue';
 import HoverCard from './HoverCard.vue';
+import CategoryButtons from './CategoryButtons.vue';
 
 export default {
   name: 'Dashboard',
@@ -100,11 +82,14 @@ export default {
       isModalVisible: false, // Control visibility of the hover modal
       currentPage: 1, // Current page number
       productsPerPage: 25, // Number of products per page
+      categories: ['Smartphones', 'Laptops', 'Groceries', 'Fragrances', 'Furniture', 'Motorcycle'],
+      selectedCategory: null,
     };
   },
   components:{
     Card,
-    HoverCard
+    HoverCard,
+    CategoryButtons
   },
   computed: {
     ...mapState(useStore, ['allProducts', 'bagItems']),
@@ -168,6 +153,11 @@ export default {
         this.currentPage = page;
       }
     },
+    categoryProduct(category) {
+      this.selectedCategory = category; // Set the selected category when a category is clicked
+    this.categoryProducts(category)    
+    }
+    
   },
 
   created() {

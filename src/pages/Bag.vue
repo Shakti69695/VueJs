@@ -20,7 +20,7 @@
         <h2 class="text-2xl font-bold text-gray-800">Bag Total: ${{ totalPrice }}</h2>
         <router-link to="/checkout"
           class="px-6 py-3 w-[161px] flex bg-gray-800 text-white rounded-xl hover:bg-gray-700"> <img
-            src="../assets/icons/Name=bag-handle.svg" class="bg-[#FFFFFF]" alt=""> Checkout</router-link>
+            src="../assets/icons/bagIcon.svg" class="bg-[#1A1F16]" alt=""> Checkout</router-link>
       </div>
     </div>
   </div>

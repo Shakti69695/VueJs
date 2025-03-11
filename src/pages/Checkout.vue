@@ -121,7 +121,7 @@ export default {
       }
     },
     goBack() {
-      this.$router.go(-1); // Navigate back to the previous page
+      this.$router.push('/bag'); // Navigate back to the previous page
     }
   }
 };

@@ -30,12 +30,17 @@ import { useStore } from '../store/store'
 
 export default {
   name: "Form",
+  data(){
+    return{
+      login_progress: false,
+    }
+  },
   watch: {
-    user: function (val) {
-      if (val.username) {
-        this.$router.push("/")
-      }
-    },
+    // user: function (val) {
+    //   if (val.username) {
+    //     this.$router.push("/")
+    //   }
+    // },
     // error_message: function (val) {
     //   if (val) {
     //     this.$snackbar.open({
@@ -49,12 +54,15 @@ export default {
     // }
   },
   methods: {
-    ...mapActions(useStore, ['fetchUser']),
+    ...mapActions(useStore, ['fetchUser','setLoginStatus']),
     loginClick: function () {
+      this.login_progress = true;
       this.fetchUser({
         username: this.username,
         password: this.password
       });
+      this.setLoginStatus(true)
+      this.$router.push('/checkout'); 
     }
   },
   computed: {
